@@ -61,20 +61,6 @@ class ViewController: UIViewController {
         }
     }
     
-    // MARK: - PromiseKit Solution
-    
-    func promiseKitSolution() {
-        let networkPromises = endpoints.map {
-            performNetworkPromise(url: baseUrl + $0)
-        }
-        
-        all(networkPromises).then { dataArray in
-            print("All Tasks are done")
-        }
-    }
-    
-    
-    
     // MARK: - General
 
     func performNetworkRequest(url: String,
