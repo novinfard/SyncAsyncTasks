@@ -20,6 +20,8 @@ class ViewController: UIViewController {
         self.promiseSolution()
     }
     
+    // MARK: - Dispatch Group
+    
     func dispatchGroupSolution() {
         let group = DispatchGroup()
         endpoints.forEach { endpoint in
@@ -35,6 +37,8 @@ class ViewController: UIViewController {
             print("All Tasks are done")
         }
     }
+    
+    // MARK: - Google Promises
     
     func performNetworkPromise(url: String) -> Promise<Data>{
         let promise =  Promise<Data>.pending()
@@ -56,6 +60,22 @@ class ViewController: UIViewController {
             print("All Tasks are done")
         }
     }
+    
+    // MARK: - PromiseKit Solution
+    
+    func promiseKitSolution() {
+        let networkPromises = endpoints.map {
+            performNetworkPromise(url: baseUrl + $0)
+        }
+        
+        all(networkPromises).then { dataArray in
+            print("All Tasks are done")
+        }
+    }
+    
+    
+    
+    // MARK: - General
 
     func performNetworkRequest(url: String,
                                completion: @escaping (Data?, Error?) -> Void) {
